@@ -1,6 +1,6 @@
-# Easy Pagination
+# Flutter Easy Paginate
 
-![Easy Pagination](https://img.shields.io/badge/easy--pagination-v1.0.0-blue)
+![Flutter Easy Paginate](https://img.shields.io/badge/flutter--easy--paginate-v1.0.0-blue)
 ![Platform](https://img.shields.io/badge/platform-flutter-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -18,5 +18,78 @@ Add the following line to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  easy_pagination: ^1.0.0
+  flutter_easy_paginate: ^1.0.1
+```
+
+## Usage
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_easy_paginate/paginate.dart';
+
+class MyListView extends StatefulWidget {
+  @override
+  _MyListViewState createState() => _MyListViewState();
+}
+
+class _MyListViewState extends State<MyListView> {
+  final List<String> _items = List.generate(20, (index) => 'Item $index');
+  final ScrollController _scrollController = ScrollController();
+  int _page = 1;
+
+  Future<void> _fetchNextPage() async {
+    // Simulate API call
+    await Future.delayed(Duration(seconds: 2));
+
+    setState(() {
+      _items.addAll(List.generate(20, (index) => 'Item ${_items.length + index}'));
+      _page++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Paginate Example'),
+      ),
+      body: Paginate(
+        scrollController: _scrollController,
+        onNextPage: _fetchNextPage,
+        child: ListView.builder(
+          controller: _scrollController,
+          itemCount: _items.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(_items[index]),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+```
+
+## Custom Loader
+
+```dart
+Paginate(
+  scrollController: _scrollController,
+  onNextPage: _fetchNextPage,
+  loader: Center(
+    child: CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+    ),
+  ),
+  child: ListView.builder(
+    controller: _scrollController,
+    itemCount: _items.length,
+    itemBuilder: (context, index) {
+      return ListTile(
+        title: Text(_items[index]),
+      );
+    },
+  ),
+);
 ```

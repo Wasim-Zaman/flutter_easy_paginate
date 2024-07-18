@@ -1,7 +1,7 @@
-name: easy_pagination
-description: "A new Flutter package project."
-version: 1.0.0
-homepage:
+name: flutter_easy_paginate
+description: "A Flutter package that simplifies pagination for various scrollable widgets like ListView, GridView, and Column. It provides seamless data fetching with customizable loader widgets and supports both vertical and horizontal scrolling."
+version: 1.0.1
+homepage: https://github.com/Wasim-Zaman/flutter_easy_paginate
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
