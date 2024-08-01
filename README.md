@@ -18,7 +18,7 @@ Add the following line to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_easy_paginate: ^1.1.0
+  flutter_easy_paginate: ^1.2.0
 ```
 
 ## Usage
@@ -26,6 +26,26 @@ dependencies:
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_paginate/flutter_easy_paginate.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Easy Paginate',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyListView(),
+    );
+  }
+}
 
 class MyListView extends StatefulWidget {
   const MyListView({super.key});
@@ -57,18 +77,53 @@ class _MyListViewState extends State<MyListView> {
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
         title: const Text('Paginate Example'),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
         primary: true,
       ),
       body: Paginate(
         scrollController: _scrollController,
         onNextPage: _fetchNextPage,
+        loader: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Loading...",
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
         child: ListView.builder(
-          controller: _scrollController,
           itemCount: _items.length,
+          controller: _scrollController,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(_items[index]),
+            return Card(
+              color: Colors.white,
+              margin: const EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 16.0,
+              ),
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.deepPurple,
+                  child: Text(
+                    _items[index].split(' ')[1],
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+                title: Text(
+                  _items[index],
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: const Text(
+                  'This is a description of the item.',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
             );
           },
         ),
@@ -77,7 +132,12 @@ class _MyListViewState extends State<MyListView> {
   }
 }
 
+
 ```
+
+## Example
+
+https://github.com/user-attachments/assets/a10f5872-9aa4-4962-8005-88b562ea9524
 
 ## Custom Loader
 
@@ -97,3 +157,7 @@ Paginate(
   ),
 );
 ```
+
+## Example
+
+https://github.com/user-attachments/assets/55c1ec9a-f8ec-47a9-8f37-4c1c15a38356

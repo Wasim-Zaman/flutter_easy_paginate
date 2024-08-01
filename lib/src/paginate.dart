@@ -91,7 +91,10 @@ class _PaginateState extends State<Paginate> {
             child: Column(
               children: [
                 Center(
-                  child: widget.loader ?? const CircularProgressIndicator(),
+                  child: widget.loader ??
+                      const CircularProgressIndicator(
+                        strokeWidth: 7.0,
+                      ),
                 ),
               ],
             ),
