@@ -79,6 +79,10 @@ class _MyListViewState extends State<MyListView> {
 
 ```
 
+
+https://github.com/user-attachments/assets/a10f5872-9aa4-4962-8005-88b562ea9524
+
+
 ## Custom Loader
 
 ```dart
